@@ -1,7 +1,18 @@
-<nav>
-	<a href="/">home</a>
-	<a href="/about">about</a>
-</nav>
+<!--div class="scene">
+	<slot/>
+</div-->
 
-<h1>home</h1>
-<p>this is the home page.</p>
+<svelte:head>
+	<title>3D</title>
+</svelte:head>
+
+<!--style>
+	.scene {
+		background: radial-gradient(hsl(220 14% 20%), hsl(220 20% 10%));
+	}
+</style-->
+
+<script>
+	import '../app.css'
+</script>
+
