@@ -1,1 +1,0 @@
-import"../chunks/CWj6FrbW.js";import"../chunks/DmiaFOSC.js";import{$ as o}from"../chunks/DyidTXrX.js";import{h as t}from"../chunks/Dh9Xy1hB.js";const e=!0,m=Object.freeze(Object.defineProperty({__proto__:null,prerender:e},Symbol.toStringTag,{value:"Module"}));function p(r){t(n=>{o.title="3D"})}export{p as component,m as universal};
