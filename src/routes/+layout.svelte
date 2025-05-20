@@ -1,11 +1,18 @@
 <div class="scene">
-	<slot/>
+	<slot />
 </div>
 
 <svelte:head>
-	<title>3D</title>
+	<title>Threlte</title>
 </svelte:head>
 
-<script>
-	import '../app.css'
-</script>
+<style>
+	.scene {
+		position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+	}
+</style>

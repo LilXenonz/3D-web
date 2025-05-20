@@ -1,47 +1,50 @@
 <script lang="ts">
-  import { Environment, Grid, OrbitControls, Text3DGeometry } from '@threlte/extras'
-  import { EquirectangularReflectionMapping } from 'three'
-  import { RGBELoader } from 'three/examples/jsm/Addons.js'
-  import { T, useLoader } from '@threlte/core'
-  import LegoShip from '$lib/models/LegoShip.svelte'
+  import { onMount } from 'svelte'
+  import { T, useThrelte, useTask } from '@threlte/core'
+  import { OrbitControls } from '@threlte/extras'
+  import PixelWorld from '$lib/models/PixelWorld.svelte'
 
+  const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+  }
+  const { camera } = useThrelte()
 
-  const { load } = useLoader(RGBELoader)
-  const map = load('/hdr/pine_picnic_4k.hdr', {
-    transform(texture) {
-      texture.mapping = EquirectangularReflectionMapping
-      return texture
-    }
+  useTask(() => {
+    //console.log($camera.position)
   })
+
+  function handleResize() {
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+  }
+  
+  window.addEventListener('resize', handleResize)
+  
+  const aspect = sizes.width / sizes.height
+
 </script>
 
-<T.PerspectiveCamera makeDefault position={[10, 5, 5]} zoom={3} fov={70}>
-  <OrbitControls
-    enableDamping={true}
-    autoRotateSpeed={0.5} />
-</T.PerspectiveCamera>
 
-<Grid />
+<PixelWorld />
 
-<T.Mesh position={[-3.8, 1.7, 0]}>  
-  <Text3DGeometry  
-    text={"Lego City"} 
-    size={0.5}
-    depth={0.2}
-  />
-  <T.MeshStandardMaterial
-  color="#FFD700"
-  metalness={0.8}
-  roughness={0.2}
-/>
-</T.Mesh>
+<T.OrthographicCamera
+makeDefault
+position={[32, 21, -84]}
+zoom={10}
+left={-aspect * 50}
+right={aspect *50}
+top={50}
+bottom={-50}
+near={11}
+far={1000}>
 
+<OrbitControls enableDamping></OrbitControls>
 
-<LegoShip scale={0.03} />
+</T.OrthographicCamera>
 
-{#await map then texture}
-  <Environment
-    isBackground
-    {texture}
-  />
-{/await}
+<T.AmbientLight color={0x404040} intensity={3}/>
+
+<T.DirectionalLight>
+  
+</T.DirectionalLight>
