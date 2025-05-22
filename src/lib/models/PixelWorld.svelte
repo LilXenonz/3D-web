@@ -5,12 +5,51 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
 
 <script>
   import { T } from '@threlte/core'
-  import { useGltf } from '@threlte/extras'
-
+  import { useGltf, interactivity, HTML} from '@threlte/extras'
+  import { Spring } from 'svelte/motion'
   let { fallback, error, children, ref = $bindable(), ...props } = $props()
 
   const gltf = useGltf('3dmodels/PixelWorld.glb')
+
+
+  interactivity()
+  const scale = new Spring(1)
+  
+  let show = $state(false)
+
+  let html = $state()
+  $effect(() => {
+    html?.render()
+  })
+
+    const url = "https://en.wikipedia.org/wiki/Ilia_Topuria"
+
+
 </script>
+
+{#if show}
+  <HTML
+      position.y={20}
+    autoRender={true}
+    bind:this={html}
+          position={[1, 7.46, -71]}
+
+
+  >
+    <div class="phone-wrapper" style="border-radius:1rem">
+      <iframe
+        title=""
+        src={url}
+        width="100%"
+        height="100%"
+        frameborder="0"
+        >
+      </iframe>
+    </div>
+  </HTML>
+{/if}
+
+
 
 <T.Group
   bind:ref
@@ -28,10 +67,26 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
       <T.Mesh
         geometry={gltf.nodes.Cube024.geometry}
         material={gltf.materials.billboards}
+        scale={scale.current}
+        onpointerenter={() => {
+          scale.target = 1.2
+          document.body.style.cursor = 'pointer'
+        }}
+        onpointerleave={() => {
+          scale.target = 1
+          document.body.style.cursor = 'auto'
+        }}     
+        onclick={() => {
+          show = !show
+        }} 
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube024_1.geometry}
         material={gltf.materials['pr 1']}
+        castShadow
+        receiveShadow
       />
     </T.Group>
     <T.Group
@@ -42,10 +97,14 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
       <T.Mesh
         geometry={gltf.nodes.Cube001.geometry}
         material={gltf.materials.billboards}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube001_1.geometry}
         material={gltf.materials['pr 1.002']}
+        castShadow
+        receiveShadow
       />
     </T.Group>
     <T.Group
@@ -56,96 +115,143 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
       <T.Mesh
         geometry={gltf.nodes.Cube002.geometry}
         material={gltf.materials.billboards}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube002_1.geometry}
         material={gltf.materials['pr 1.001']}
+        castShadow
+        receiveShadow
       />
     </T.Group>
     <T.Group scale={329.69}>
       <T.Mesh
         geometry={gltf.nodes.Plane010.geometry}
         material={gltf.materials['grass floor']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_1.geometry}
         material={gltf.materials.floor}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_2.geometry}
         material={gltf.materials.street}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_3.geometry}
         material={gltf.materials.car}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_4.geometry}
         material={gltf.materials['dress red']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_5.geometry}
         material={gltf.materials.ram}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_6.geometry}
         material={gltf.materials['blue tree']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_7.geometry}
         material={gltf.materials['center flower']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_8.geometry}
         material={gltf.materials['leafs flower']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_9.geometry}
         material={gltf.materials['roots flower']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_10.geometry}
         material={gltf.materials.grass}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_11.geometry}
         material={gltf.materials.rock}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_12.geometry}
         material={gltf.materials.billboards}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_13.geometry}
         material={gltf.nodes.Plane010_13.material}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_14.geometry}
         material={gltf.materials['dark billboard']}
+        castShadow
+        receiveShadow
       />
+
       <T.Mesh
         geometry={gltf.nodes.Plane010_15.geometry}
         material={gltf.materials['ligth sine']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_16.geometry}
         material={gltf.materials['bottom tree']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_17.geometry}
         material={gltf.materials['dark blue ']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_18.geometry}
         material={gltf.materials['leafes tree']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_19.geometry}
         material={gltf.materials['dark leafes tree']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Plane010_20.geometry}
         material={gltf.materials.text}
+        castShadow
+        receiveShadow
       />
     </T.Group>
     <T.Group
@@ -155,18 +261,26 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
       <T.Mesh
         geometry={gltf.nodes.Cube008.geometry}
         material={gltf.materials.shoes}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_1.geometry}
         material={gltf.materials.skin}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_2.geometry}
         material={gltf.materials['shirt blue']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_3.geometry}
         material={gltf.materials['dress red']}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_4.geometry}
@@ -175,14 +289,20 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
       <T.Mesh
         geometry={gltf.nodes.Cube008_5.geometry}
         material={gltf.materials.hair}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_6.geometry}
         material={gltf.materials.belt}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Cube008_7.geometry}
         material={gltf.materials.eyes}
+        castShadow
+        receiveShadow
       />
     </T.Group>
   {:catch err}
@@ -191,3 +311,14 @@ Command: npx @threlte/gltf@3.0.0-next.11 .\PixelWorld.glb
 
   {@render children?.({ ref })}
 </T.Group>
+
+
+<style>
+  .phone-wrapper {
+    height: 200px;
+    width: 420px;
+    border-radius: 63px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+</style>
