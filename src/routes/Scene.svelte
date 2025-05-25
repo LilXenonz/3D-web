@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { T, useThrelte, useTask } from '@threlte/core'
   import { OrbitControls, Sky } from '@threlte/extras'
-  import PixelWorld from '$lib/models/PixelWorld.svelte'
+  import World from '$lib/models/world.svelte'
   import { SoftShadows } from '@threlte/extras'
   import * as THREE from 'three'
 	import { render } from 'svelte/server';
@@ -14,7 +14,7 @@
   }
   const { renderer } = useThrelte()
   let aspect = sizes.width / sizes.height
-  
+
   useTask(() => {
     //console.log($camera.position)
   })
@@ -31,10 +31,10 @@
   renderer.toneMappingExposure = 1.5
   window.addEventListener('resize', handleResize)
 
+
 </script>
 
-
-<PixelWorld />
+<World />
 
 
 <T.OrthographicCamera
@@ -45,7 +45,8 @@ top={50}
 bottom={-50}
 near={1}
 far={1000}>
-<OrbitControls enableDamping></OrbitControls>
+
+<!--- -><OrbitControls enableDamping></OrbitControls> -->
 
 </T.OrthographicCamera>
 
@@ -65,8 +66,8 @@ far={1000}>
   shadow.radius = 4
   >     
   {#snippet children({ ref })}
-    <T.DirectionalLightHelper args={[ref]}/>
-    <T.CameraHelper args={[ref.shadow.camera]} />
+    <!-- <T.DirectionalLightHelper args={[ref]}/> -->
+    <!--<T.CameraHelper args={[ref.shadow.camera]} />-->
   {/snippet}
 </T.DirectionalLight>
 
