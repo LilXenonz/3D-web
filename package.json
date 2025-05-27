@@ -46,6 +46,7 @@
 		"@threlte/theatre": "^3.0.1",
 		"@types/three": "^0.176.0",
 		"gsap": "^3.13.0",
+		"mdsvex": "^0.12.6",
 		"three": "^0.176.0"
 	}
 }

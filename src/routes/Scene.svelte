@@ -6,6 +6,7 @@
   import { SoftShadows } from '@threlte/extras'
   import * as THREE from 'three'
 	import { render } from 'svelte/server';
+  import { HTML } from '@threlte/extras'
   
   
   const sizes = {
@@ -54,7 +55,7 @@ far={1000}>
 
 <T.DirectionalLight 
   castShadow
-  position={[0, 80, 0]} 
+  position={[40, 80, 0]} 
   target.position={[-15, 0, 0]}
   shadow.camera.left={-135}         
   shadow.camera.right={135} 
@@ -70,4 +71,3 @@ far={1000}>
     <!--<T.CameraHelper args={[ref.shadow.camera]} />-->
   {/snippet}
 </T.DirectionalLight>
-

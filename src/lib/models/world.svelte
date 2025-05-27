@@ -5,7 +5,7 @@ Command: npx @threlte/gltf@3.0.1 .\world.glb
 
 <script lang="ts">
   import { T, useThrelte, useTask } from '@threlte/core'
-  import { useGltf, interactivity, HTML, Billboard} from '@threlte/extras'
+  import { useGltf, interactivity, HTML, Billboard, GLTF } from '@threlte/extras'
   import gsap from 'gsap';
   import { Spring } from 'svelte/motion'
   import { writable } from 'svelte/store'
@@ -84,14 +84,14 @@ Command: npx @threlte/gltf@3.0.1 .\world.glb
     }
   })
 
-  import { Vector3 } from 'three'
+  import { Vector3, Mesh } from 'three'
+      
     
-  
-  
-  import type { Group } from 'three'
+    
+    import type { Group } from 'three'
 	import { scale } from 'svelte/transition';
   const characterInstance = writable<Group | undefined>(undefined)
-  const moveDistance = writable(3)
+  const moveDistance = writable(6)
   const jumpHeight = writable(1)
   let isMoving = $state(false)
   const moveduration = writable(0.2)
@@ -152,30 +152,30 @@ Command: npx @threlte/gltf@3.0.1 .\world.glb
     case "w":
     case "arrowup":
       targetposition.x -= $moveDistance
-      targetrotation = 0
+      targetrotation = -Math.PI / 2
       break
 
     case "s":
     case "arrowdown":
       targetposition.x += $moveDistance
-      targetrotation = Math.PI
+      targetrotation = Math.PI / 2
       break
 
     case "a":
     case "arrowleft":
       targetposition.z += $moveDistance
-      targetrotation = Math.PI / 2
+      targetrotation = 0
       break
 
     case "d":
     case "arrowright":
       targetposition.z -= $moveDistance
-      targetrotation = -Math.PI / 2
+      targetrotation = Math.PI
       break
   }
 
   moveCharacter(targetposition, targetrotation)
-
+  
 }
 
   window.addEventListener("keydown", onkeyDown)
@@ -325,7 +325,7 @@ const zoroCurrentScale = 1.31;
 
   const { camera } = useThrelte()
   const cameraOffset = new Vector3(75, 40, -75);
-
+  const modelref = $state<Group | undefined>(undefined);
   useTask(() => {
     if ($characterInstance?.position) {
       const targetCameraPosition = new Vector3(
@@ -339,12 +339,12 @@ const zoroCurrentScale = 1.31;
         $camera.position.y - 40,
         $characterInstance.position.z      
       );
-
     }
   })
 
 
 </script>
+
 
 {#if show}
   {#if $billboardsProps}
@@ -399,42 +399,43 @@ const zoroCurrentScale = 1.31;
           position={[0, -0.02, 0]}
           rotation={[0, -0.02, 0]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_10.geometry}
             material={gltf.materials['Material.008']}
+            
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_11.geometry}
             material={gltf.materials['Material.008']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_12.geometry}
             material={gltf.materials['Material.008']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_9.geometry}
             material={gltf.materials['Material.008']}
           />
         </T.Group>
         <T.Group rotation={[0, -0.03, 0]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_4.geometry}
             material={gltf.materials['Material.008']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_5.geometry}
             material={gltf.materials['Material.008']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_6.geometry}
             material={gltf.materials['Material.008']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_7.geometry}
             material={gltf.materials['Material.008']}
           />
         </T.Group>
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_14.geometry}
           material={gltf.materials['Material.009']}
           position={[0, 0.06, 0]}
@@ -460,12 +461,12 @@ const zoroCurrentScale = 1.31;
           position={[0, 1.14, 0]}
           rotation={[0, 0.13, 0]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_13.geometry}
             material={gltf.materials['material_0.002']}
             position={[0, -1.14, 0]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_11001.geometry}
             material={gltf.materials['material_0.002']}
             position={[0, -1.14, 0]}
@@ -475,12 +476,12 @@ const zoroCurrentScale = 1.31;
           position={[0, 1.14, 0]}
           rotation={[Math.PI / 9, 0, -0.17]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_8.geometry}
             material={gltf.materials['material_0.002']}
             position={[0, -1.14, 0]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_6001.geometry}
             material={gltf.materials['material_0.002']}
             position={[0, -1.14, 0]}
@@ -490,12 +491,12 @@ const zoroCurrentScale = 1.31;
           position={[-0.24, 1.14, 0]}
           rotation={[-3.1, -0.01, -0.26]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_23.geometry}
             material={gltf.materials['material_0.002']}
             position={[0.24, -1.14, 0]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_21.geometry}
             material={gltf.materials['material_0.002']}
             position={[0.24, -1.14, 0]}
@@ -505,12 +506,12 @@ const zoroCurrentScale = 1.31;
           position={[-0.09, 0.86, -0.18]}
           rotation={[0.43, -0.07, -0.16]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_33.geometry}
             material={gltf.materials['material_0.002']}
             position={[0.09, -0.86, 0.18]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_31.geometry}
             material={gltf.materials['material_0.002']}
             position={[0.09, -0.86, 0.18]}
@@ -520,12 +521,12 @@ const zoroCurrentScale = 1.31;
           position={[0.24, 1.14, 0]}
           rotation={[-2.81, -0.16, 0.65]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_18.geometry}
             material={gltf.materials['material_0.002']}
             position={[-0.24, -1.14, 0]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_16.geometry}
             material={gltf.materials['material_0.002']}
             position={[-0.24, -1.14, 0]}
@@ -535,12 +536,12 @@ const zoroCurrentScale = 1.31;
           position={[0.09, 0.52, 0]}
           rotation={[-0.08, -0.02, 0.26]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_28.geometry}
             material={gltf.materials['material_0.002']}
             position={[-0.09, -0.57, 0]}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_26.geometry}
             material={gltf.materials['material_0.002']}
             position={[-0.09, -0.57, 0]}
@@ -565,7 +566,7 @@ const zoroCurrentScale = 1.31;
       <T.Group rotation={[Math.PI / 2, 0, 0]}>
         <T.Group position={[0, 1.5, 0]}>
           <T.Group position={[0, -1.5, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_13001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.08, 0.1]}
@@ -573,7 +574,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[0, -1.5, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_11002.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.08, 0.1]}
@@ -586,7 +587,7 @@ const zoroCurrentScale = 1.31;
           rotation={[0.11, -0.09, 0.01]}
         >
           <T.Group position={[0, -1.5, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_8001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.12, -0.85]}
@@ -594,7 +595,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[0, -1.5, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_6002.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.12, -0.85]}
@@ -607,7 +608,7 @@ const zoroCurrentScale = 1.31;
           rotation={[-0.21, 0, 0]}
         >
           <T.Group position={[0.31, -1.38, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_23001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.28, 1.82]}
@@ -615,7 +616,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[0.31, -1.38, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_21001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.28, 1.82]}
@@ -628,7 +629,7 @@ const zoroCurrentScale = 1.31;
           rotation={[0.17, -0.01, -0.03]}
         >
           <T.Group position={[0.12, -0.75, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_33001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.17, -0.16, -0.68]}
@@ -636,7 +637,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[0.12, -0.75, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_31001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.17, -0.16, -0.68]}
@@ -649,7 +650,7 @@ const zoroCurrentScale = 1.31;
           rotation={[0.17, 0, 0]}
         >
           <T.Group position={[-0.31, -1.37, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_18001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.19, -1.34]}
@@ -657,7 +658,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[-0.31, -1.37, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_16001.geometry}
               material={gltf.materials['material_0.003']}
               position={[-0.01, -0.19, -1.34]}
@@ -670,7 +671,7 @@ const zoroCurrentScale = 1.31;
           rotation={[-0.19, -0.01, 0.03]}
         >
           <T.Group position={[-0.12, -0.75, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_28001.geometry}
               material={gltf.materials['material_0.003']}
               position={[0.14, -0.21, 0.94]}
@@ -678,7 +679,7 @@ const zoroCurrentScale = 1.31;
             />
           </T.Group>
           <T.Group position={[-0.12, -0.75, 0]}>
-            <T.Mesh
+            <T.Mesh castShadow receiveShadow
               geometry={gltf.nodes.Object_26001.geometry}
               material={gltf.materials['material_0.003']}
               position={[0.14, -0.21, 0.94]}
@@ -696,31 +697,31 @@ const zoroCurrentScale = 1.31;
     >
       <T.Group rotation={[Math.PI / 2, 0, 0]}>
         <T.Group rotation={[-0.09, -0.2, -0.03]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_36.geometry}
             material={gltf.materials['Piel.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_38.geometry}
             material={gltf.materials['Outline.001']}
           />
         </T.Group>
         <T.Group rotation={[-0.15, 0.28, 0.19]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_40.geometry}
             material={gltf.materials['Piel.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_42.geometry}
             material={gltf.materials['Outline.001']}
           />
         </T.Group>
         <T.Group rotation={[0.94, 0.19, -1.57]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_44.geometry}
             material={gltf.materials['Piel.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_46.geometry}
             material={gltf.materials['Outline.001']}
           />
@@ -729,1297 +730,1297 @@ const zoroCurrentScale = 1.31;
           rotation={[1.13, 0.25, -1.66]}
           scale={[1.6, 0.84, 1.06]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_32.geometry}
             material={gltf.materials['Piel.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_34.geometry}
             material={gltf.materials['Outline.001']}
             position={[-0.57, 0.52, -0.72]}
           />
         </T.Group>
         <T.Group rotation={[0.56, 1.25, -1.45]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_4001.geometry}
             material={gltf.materials['Piel.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_6003.geometry}
             material={gltf.materials['Outline.001']}
           />
         </T.Group>
         <T.Group rotation={[-0.37, 0, 0]}>
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_56.geometry}
             material={gltf.materials['Pelo.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes.Object_57.geometry}
             material={gltf.materials['Outline_pelo.001']}
           />
         </T.Group>
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_491.geometry}
           material={gltf.materials['Outline.001']}
           scale={[0, 0.01, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_485.geometry}
           material={gltf.materials['Aretes.001']}
           scale={[0, 0.01, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_487.geometry}
           material={gltf.materials['Aretes.001']}
           scale={[0, 0.01, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_489.geometry}
           material={gltf.materials['Aretes.001']}
           scale={[0, 0.01, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_26002.geometry}
           material={gltf.materials['Outline.001']}
           position={[0, 1.64, 0.48]}
           rotation={[-0.37, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_24.geometry}
           material={gltf.materials['Piel_0.001']}
           rotation={[-0.37, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_12001.geometry}
           material={gltf.materials['Polera.001']}
           rotation={[-Math.PI / 2, Math.PI / 2, 0]}
           scale={[0.09, 0.12, 0.09]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_22.geometry}
           material={gltf.materials['Outline_faja.001']}
           rotation={[-Math.PI / 2, Math.PI / 2, 0]}
           scale={[0.09, 0.12, 0.09]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_30.geometry}
           material={gltf.materials['Piel.001']}
           rotation={[0, 0, -0.32]}
           scale={[1, 1, 1.27]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_50.geometry}
           material={gltf.materials['Outline.001']}
           position={[0.31, 1.31, 0.64]}
           rotation={[0, 0, -0.32]}
           scale={[1, 1, 1.27]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_10001.geometry}
           material={gltf.materials['Outline.001']}
           position={[0.13, 1.1, 0.29]}
           rotation={[0.69, 0.25, 2.69]}
           scale={-1}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_8002.geometry}
           material={gltf.materials['Piel.001']}
           rotation={[0.69, 0.25, 2.69]}
           scale={-1}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_54.geometry}
           material={gltf.materials['Outline.001']}
           position={[-0.1, 1.6, 0.55]}
           rotation={[0.43, -0.34, -1.17]}
           scale={0.04}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_52.geometry}
           material={gltf.materials['Piel.001']}
           rotation={[0.43, -0.34, -1.17]}
           scale={0.04}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_18002.geometry}
           material={gltf.materials['Outline_pantalones.001']}
           position={[0, 0.16, 0.51]}
           rotation={[-Math.PI / 2, Math.PI / 2, 0]}
           scale={0.12}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_14001.geometry}
           material={gltf.materials['Polera.001']}
           rotation={[-Math.PI / 2, Math.PI / 2, 0]}
           scale={0.12}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_61.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.71}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_451.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.4, -0.18, -1.85]}
           scale={0.56}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_453.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.4, -0.18, -1.85]}
           scale={0.56}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_63.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_65.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_455.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.4, -0.18, -1.85]}
           scale={0.56}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_457.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.06, -0.21, -1.37]}
           scale={0.56}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_459.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_67.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_69.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_71.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_73.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_461.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_75.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0.05]}
           scale={0.11}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_463.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_465.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_467.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_469.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_471.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_473.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_475.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_77.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.06, -0.64, -0.32]}
           scale={0.77}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_79.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.03, -0.95, -0.63]}
           scale={0.89}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_81.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.3, -0.95, -0.63]}
           scale={0.97}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_83.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.3, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_85.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.26, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_87.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.7, -1.39, 0.87]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_89.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.26, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_91.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.26, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_93.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_95.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_97.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.17, -0.68, -0.46]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_99.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.13, -0.78, -0.51]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_101.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_103.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_105.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.03, -0.66, -0.39]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_107.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.03, -0.66, -0.39]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_109.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.04, 0, 0.08]}
           scale={0.14}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_477.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_111.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.03, 0, 0.16]}
           scale={0.52}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_479.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_481.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_483.geometry}
           material={gltf.materials['Outline_pelo.001']}
           position={[-0.12, 1.61, 0.36]}
           rotation={[-0.05, 0, 0.02]}
           scale={0.01}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_113.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.16, 0.53, 0.26]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_115.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.16, 0.53, 0.27]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_117.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.16, 0.53, 0.27]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_119.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.16, 0.53, 0.25]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_121.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.15, 0.53, 0.25]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_123.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.15, 0.53, 0.24]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_125.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.15, 0.53, 0.24]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_127.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, 0.41, -0.37]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_129.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.15, 0.41, -0.33]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_131.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.17, 0.4, -0.4]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_133.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, 0.41, -0.35]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_135.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.41, 0.32, -0.78]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_137.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.3, -0.82]}
           scale={0.91}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_139.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.27, -0.89]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_141.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_143.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.88]}
           scale={0.72}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_145.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.52]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_147.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_149.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
           scale={0.94}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_151.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.17, -0.19, -1.75]}
           scale={0.56}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_153.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.36, 0.08, -1.66]}
           scale={0.69}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_155.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.36, 0.08, -1.66]}
           scale={0.71}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_157.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, -0.04, -1.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_159.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.17, 0.07, -1.46]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_161.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, -0.04, -1.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_163.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, -0.04, -1.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_165.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.16, -0.04, -1.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_167.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.36, 0.07, -1.14]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_169.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.35, 0.06, -1.11]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_171.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.03, 0, 0.17]}
           scale={0.48}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_173.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.31, -0.81]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_175.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.29, -0.85]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_177.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.3, -0.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_179.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.31, -0.82]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_181.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.31, -0.82]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_183.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.3, -0.83]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_185.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.87]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_187.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.87]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_189.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.29, -0.85]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_191.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.29, -0.86]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_193.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.3, -0.84]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_195.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.3, -0.84]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_197.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.88]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_199.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.88]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_201.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.42, 0.29, -0.86]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_203.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.27, -0.9]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_205.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_207.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_209.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_211.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_213.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_215.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_217.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_219.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.25, -0.93]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_221.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.82, 0.75, -2.08]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_223.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.22, -0.2, -1.51]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_225.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.19, -0.22, -1.55]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_227.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.82, 0.75, -2.08]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_229.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.82, 0.75, -2.08]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_231.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.82, 0.75, -2.08]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_233.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.66, 0.55, -1.82]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_235.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.13, 0.82, -0.81]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_237.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.15, 0.82, -0.84]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_239.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.15, 0.82, -0.84]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_241.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.24, 1.39, -2.99]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_243.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_245.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_247.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_249.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.99, 1.03, -2.31]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_251.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.53, -0.98]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_253.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.8, -0.22, -0.7]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_255.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.57, -0.3, 0.37]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_257.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.57, -0.3, 0.37]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_259.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.57, -0.3, 0.37]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_261.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_263.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_265.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_267.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_269.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_271.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_273.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_275.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_277.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_279.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_281.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_283.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_285.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_287.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_289.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_291.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_293.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.49, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_295.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.52, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_297.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.5, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_299.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.51, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_301.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.16, 0.68, -0.53]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_303.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_305.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_307.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_309.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_311.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_313.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_315.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_317.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_319.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_321.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_323.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_325.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[1.19, 1.18, -2.34]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_327.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_329.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.69, -0.3, -0.04]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_331.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.51, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_333.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.92, -0.41, -1.03]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_335.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.45, -0.51, -0.05]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_337.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.28, -0.88]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_339.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.43, 0.27, -0.89]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_341.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.52]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_343.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_345.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_347.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_349.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_351.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_353.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_355.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_357.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_359.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_361.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_363.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_365.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_367.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_369.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_371.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_373.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_375.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_377.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_379.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.51, -0.95, -0.63]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_381.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_383.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_385.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_387.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_389.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_391.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_393.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_395.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_397.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_399.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.92, -0.77, -0.56]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_401.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.21, -0.74, -0.98]}
           scale={1.31}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_403.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
           scale={0.94}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_405.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.53]}
           scale={0.94}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_407.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_409.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_411.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_413.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_415.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.98, -1.18, 0.32]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_417.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.98, -1.18, 0.32]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_419.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-1.98, -1.18, 0.32]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_421.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.43, -0.17, -2.01]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_423.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.43, -0.17, -2.01]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_425.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.43, -0.17, -2.01]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_427.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.43, -0.17, -2.01]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_429.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[2.43, -0.17, -2.01]}
           scale={0.78}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_431.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_433.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_435.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_437.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_439.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_441.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.4, 0.35, -0.73]}
           scale={0.99}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_443.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.22, 0.34, -1.59]}
           scale={0.72}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_445.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.25, -0.04, -1.8]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_447.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.49, 0.02, -1.52]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_449.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[0.71, 0.1, -1.42]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_59.geometry}
           material={gltf.materials['Pelo_0.001']}
           rotation={[-0.05, 0, 0]}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_495.geometry}
           material={gltf.materials['Outline.001']}
           position={[0.07, 1.26, 0.39]}
           rotation={[-0.94, -0.74, 0.16]}
           scale={0.05}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_493.geometry}
           material={gltf.materials['Polera.001']}
           rotation={[-0.94, -0.74, 0.16]}
           scale={0.05}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_48.geometry}
           material={gltf.materials['Outline.001']}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_28002.geometry}
           material={gltf.materials['Piel.001']}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_20.geometry}
           material={gltf.materials['Outline_pantalones.001']}
         />
-        <T.Mesh
+        <T.Mesh castShadow receiveShadow
           geometry={gltf.nodes.Object_16002.geometry}
           material={gltf.materials['Zapatos.001']}
         />
@@ -2036,11 +2037,11 @@ const zoroCurrentScale = 1.31;
           rotation={[-Math.PI / 2, 0, Math.PI]}
           scale={[1, 1, 0.11]}
         >
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes['Octagon_02_-_Default_0'].geometry}
             material={gltf.materials['02_-_Default.001']}
           />
-          <T.Mesh
+          <T.Mesh castShadow receiveShadow
             geometry={gltf.nodes['Octagon_03_-_Default_0'].geometry}
             material={gltf.materials['03_-_Default']}
           />
@@ -2070,14 +2071,11 @@ const zoroCurrentScale = 1.31;
         castShadow
         receiveShadow
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube024_1.geometry}
         material={gltf.materials['pr 1']}
-        castShadow
-        receiveShadow
-
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube024_1.geometry}
         material={gltf.materials['pr 1']}
       />
@@ -2087,7 +2085,7 @@ const zoroCurrentScale = 1.31;
       rotation={[0, -1.2, 0]}
     >
       <!-- islam -->
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube001.geometry}
         material={gltf.materials.billboards}
 
@@ -2106,14 +2104,14 @@ const zoroCurrentScale = 1.31;
         }}     
         onclick={() => toggleShow(5)}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube001_1.geometry}
         material={gltf.materials['pr 1.002']}
       />
     </T.Group>
     <T.Group position={[-73.21, 6.89, -1.38]}>
       <!-- merab -->
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube004.geometry}
         material={gltf.materials.billboards}
 
@@ -2132,14 +2130,14 @@ const zoroCurrentScale = 1.31;
         }}     
         onclick={() => toggleShow(3)}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube004_1.geometry}
         material={gltf.materials['pr 1.003']}
       />
     </T.Group>
     <T.Group position={[-72.97, 6.89, 21.66]}>
       <!-- paddy -->
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube002.geometry}
         material={gltf.materials.billboards}
 
@@ -2158,7 +2156,7 @@ const zoroCurrentScale = 1.31;
         }}     
         onclick={() => toggleShow(2)}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube002_1.geometry}
         material={gltf.materials['pr 1.005']}
       />
@@ -2169,7 +2167,7 @@ const zoroCurrentScale = 1.31;
       scale={1.09}
     >
     <!-- dricus -->
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube003.geometry}
         material={gltf.materials.billboards}
 
@@ -2188,7 +2186,7 @@ const zoroCurrentScale = 1.31;
         }}     
         onclick={() => toggleShow(6)}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube003_1.geometry}
         material={gltf.materials['pr 1.004']}
       />
@@ -2198,7 +2196,7 @@ const zoroCurrentScale = 1.31;
       rotation={[0, -1.16, 0]}
     >
     <!-- khamzat -->
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube005.geometry}
         material={gltf.materials.billboards}
 
@@ -2217,7 +2215,7 @@ const zoroCurrentScale = 1.31;
         }}     
         onclick={() => toggleShow(4)}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube005_1.geometry}
         material={gltf.materials['pr 1.001']}
       />
@@ -2225,125 +2223,125 @@ const zoroCurrentScale = 1.31;
 
     <!-- character -->
     <T.Group 
-      position={[20, 5.22, -86.02]}
+      position={[20, 4, -86.02]}
       bind:ref={$characterInstance}
     >
       
 
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow 
         geometry={gltf.nodes.Cube008.geometry}
         material={gltf.materials.shoes}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_1.geometry}
         material={gltf.materials.skin}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_2.geometry}
         material={gltf.materials['shirt blue']}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_3.geometry}
         material={gltf.materials['dress red']}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_4.geometry}
         material={gltf.materials.jeans}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_5.geometry}
         material={gltf.materials.hair}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_6.geometry}
         material={gltf.materials.belt}
       />
-      <T.Mesh
+      <T.Mesh castShadow receiveShadow
         geometry={gltf.nodes.Cube008_7.geometry}
         material={gltf.materials.eyes}
       />
     </T.Group>
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139.geometry}
       material={gltf.materials['grass floor']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_1.geometry}
       material={gltf.materials.floor}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_2.geometry}
       material={gltf.materials.street}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_3.geometry}
       material={gltf.materials.car}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_4.geometry}
       material={gltf.materials['dress red']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_5.geometry}
       material={gltf.materials.ram}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_6.geometry}
       material={gltf.materials['blue tree']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_7.geometry}
       material={gltf.materials['center flower']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_8.geometry}
       material={gltf.materials['leafs flower']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_9.geometry}
       material={gltf.materials['roots flower']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_10.geometry}
       material={gltf.materials.grass}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_11.geometry}
       material={gltf.materials.rock}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_12.geometry}
       material={gltf.materials['billboards.001']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_13.geometry}
       material={gltf.nodes.Plane139_13.material}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_14.geometry}
       material={gltf.materials['dark billboard']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_15.geometry}
       material={gltf.materials['ligth sine']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_16.geometry}
       material={gltf.materials['bottom tree']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_17.geometry}
       material={gltf.materials['dark blue ']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_18.geometry}
       material={gltf.materials['leafes tree']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_19.geometry}
       material={gltf.materials['dark leafes tree']}
     />
-    <T.Mesh
+    <T.Mesh castShadow receiveShadow
       geometry={gltf.nodes.Plane139_20.geometry}
       material={gltf.materials.text}
     />
