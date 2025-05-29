@@ -7,6 +7,7 @@
   import * as THREE from 'three'
 	import { render } from 'svelte/server';
   import { HTML } from '@threlte/extras'
+
   
   
   const sizes = {
@@ -14,7 +15,7 @@
     height: window.innerHeight
   }
   const { renderer } = useThrelte()
-  let aspect = sizes.width / sizes.height
+  //const {camera} = useThrelte()
 
   useTask(() => {
     //console.log($camera.position)
@@ -37,17 +38,19 @@
 
 <World />
 
-
 <T.OrthographicCamera
 makeDefault
-position={[32, 21, -84]}
+position={[50, 40, 15]}
 zoom={10}
 top={50}
 bottom={-50}
 near={1}
-far={1000}>
-
-<!--- -><OrbitControls enableDamping></OrbitControls> -->
+far={1000}
+oncreate={(ref) => {
+    ref.lookAt(-20, 3 , 31)
+  }}
+>
+<!-- ><OrbitControls enableDamping></OrbitControls> -->
 
 </T.OrthographicCamera>
 
