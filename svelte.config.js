@@ -15,11 +15,9 @@ const config = {
 		adapter: adapter({
 			pages: 'docs',
 			assets: 'docs',
-			fallback: '404.html'
+			fallback: null
 		}),
-		paths: {
-			base: '/3D-web' 
-		}
+
 		
 	},
 };
