@@ -1,0 +1,50 @@
+---
+title: Version 0.5.x
+date: "2025-05-24"
+---
+
+# blender
+
+## Description
+
+Jag har börjat implementera  
+<span class="text-purple-300 font-semibold">Threlte 3D-funktioner</span> i min <span class="text-green-300">3D-värld</span>,  
+som till exempel  
+<span class="text-pink-400">&lt;/T.OrthographicCamera&gt;</span>  
+och  
+<span class="text-pink-400">&lt;HTML&gt;</span>,  
+samt andra props som  
+<span class="text-blue-400">iframe</span>.
+
+Jag började sedan jobba med <span class="text-yellow-300 font-semibold">belysning</span> och <span class="text-emerald-300 font-semibold">rendering</span>.  
+Denna process tog lång tid på grund av hur mycket man kan göra  
+och hur mycket jag behövde läsa i <span class="italic text-gray-300">Three.js-dokumentationen</span>.
+
+Jag behövde också lista ut hur jag skulle översätta från  
+<span class="text-cyan-300 font-semibold">Three.js</span> till <span class="text-purple-300 font-semibold">Threlte</span>.  
+Jag fick då lära mig om <span class="text-orange-300">utilities</span> i Threlte.
+
+---
+
+## Changes
+
+Följande ändringar och implementationer har gjorts i denna version av projektet:
+
+* <span class="text-green-300">Kamera, anime-karaktär, rendering</span>  
+* <span class="text-yellow-300">Mer optimering</span>
+
+---
+
+## Features
+
+✅ <span class="text-pink-300 font-bold">NY VACKER RENDERING</span>  
+✅ <span class="text-emerald-300 font-semibold">Optimering</span>
+
+---
+
+<hr class="border-pink-400 my-4">
+<br>
+
+<br><br>
+
+Published: <span class="text-gray-400">2025-05-24</span>

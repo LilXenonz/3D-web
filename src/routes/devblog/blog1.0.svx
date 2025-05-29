@@ -1,0 +1,62 @@
+---
+title: Version 1.0x
+date: "2025-05-27"
+---
+
+# blender
+
+## Description
+
+Jag har försökt avsluta mitt projekt med  
+<span class="text-green-300 font-semibold">fina animationer</span>  
+genom att använda  
+<span class="text-pink-400 font-bold">GSAP</span> – ett verktyg för att skapa  
+<span class="italic text-blue-300">tidslinjer i kod</span>.  
+Till exempel:  
+<span class="text-yellow-300">t1: x=1, t2: x=2</span>.  
+Det var ett enkelt sätt att <span class="text-emerald-300">lägga till liv i min scen</span>.
+
+Till sist försökte jag förfina mina  
+<span class="text-purple-300">blogginlägg</span>  
+genom att lägga till en ny  
+<span class="text-blue-300">miljö</span> och  
+<span class="text-yellow-200">belysning</span>, samt ändra lite på  
+mina <span class="text-orange-300">renderingsinställningar</span>.
+
+---
+
+Men slutligen, om du ens ser detta –  
+jag ville bara säga att detta projekt  
+var ett <span class="text-pink-300 italic">roligt sätt att lära mig</span>.  
+Jag känner att jag har lärt mig  
+<span class="font-bold text-green-400">1000%</span> mer än vad jag kunde innan.  
+Om jag skulle förklara något till min gamla jag,  
+tror jag inte han skulle fatta.
+
+---
+
+## Changes
+
+Följande ändringar och implementationer har gjorts i denna version av projektet:
+
+* <span class="text-pink-400 font-semibold">GSAP</span>  
+* <span class="text-yellow-300">Mer optimering</span>
+
+---
+
+## Features
+
+✅ <span class="text-green-300 font-bold">Animationer</span>  
+✅ <span class="text-emerald-300 font-semibold">Optimering</span>
+
+---
+
+<hr class="border-pink-400 my-4">
+<br>
+
+Commit:  
+<a href="" target="_blank" class="text-purple-300 underline hover:text-purple-500">Version 1.0x</a>
+
+<br><br>
+
+Published: <span class="text-gray-400">2025-05-27</span>

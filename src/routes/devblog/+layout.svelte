@@ -20,7 +20,7 @@
   <Computer/>
 
 <T.Group position={[0, 5, 0]}>
-  <HTML center transform>
+  <HTML transform>
     <div class="phone-screen">
         <slot/>
     </div>
@@ -28,20 +28,20 @@
 </T.Group>
 
     <T.AmbientLight/>
+    <T.DirectionalLight/>
   </Canvas>
 </div>
 
-  
+
 
 <style>
   .phone-screen {
   width: 300px;
   height: 200px;
-  text-align: left;
-  overflow: auto;
   background: blue;
   border-radius: 5px;
   font-family: "Pixelify Sans", sans-serif;
+  overflow: auto;
 }
 
 </style>

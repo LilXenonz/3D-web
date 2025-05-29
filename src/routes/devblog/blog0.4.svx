@@ -1,0 +1,44 @@
+---
+title: Version 0.4.x
+date: "2025-05-17"
+---
+
+# blender
+
+## Description
+
+Jag började bara göra <span class="text-pink-400 font-semibold">en simpel header</span>  
+för att kunna navigera mellan min <span class="text-blue-400">“main”</span> och <span class="text-green-300">bloggen</span>.
+
+Jag fick <span class="italic text-yellow-300">lära mig lite om Tailwind</span>  
+och hur det används.  
+Det var en <span class="text-emerald-300">bra genväg</span> som förenklade processen med CSS.
+
+Jag stötte på några problem med min  
+<span class="text-purple-300">&#123;base&#125;</span>
+och hur den skulle importeras.
+
+---
+
+## Changes
+
+Följande ändringar och implementationer har gjorts i denna version av projektet:
+
+* <span class="text-green-300">Ny navigation header</span>  
+* <span class="text-yellow-400">Tailwind-implementation</span>
+
+---
+
+## Features
+
+✅ <span class="text-cyan-300 font-semibold">Ny värld</span>  
+
+---
+
+<hr class="border-pink-400 my-4">
+<br>
+
+
+<br><br>
+
+Published: <span class="text-gray-400">2025-05-17</span>

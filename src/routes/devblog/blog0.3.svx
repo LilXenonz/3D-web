@@ -1,0 +1,47 @@
+---
+title: Version 0.3.x
+date: "2025-05-10"
+---
+
+# blender
+
+## Description
+
+Jag har börjat med att skapa <span class="text-pink-400 font-semibold">min värld i Blender</span>  
+(<span class="italic text-yellow-300">som är det roligaste</span>).  
+
+Jag började såklart med att återkomma till några funktioner – det har gått cirka <span class="text-gray-400">två år</span>  
+utan att jag har använt <span class="text-purple-400 font-semibold">Blender</span>.
+
+Jag började sedan med <span class="text-green-300">min värld</span> –  
+först <span class="text-blue-300">karaktären (mig)</span>,  
+sedan <span class="text-emerald-300">naturen</span>: träd, blommor och gräs,  
+samt extra grejer som <span class="text-orange-300">en bil</span> och <span class="text-red-300">ett staket</span>.
+
+Resultatet blev som jag hade förväntat mig.
+
+---
+
+## Changes
+
+Följande ändringar och implementationer har gjorts i denna version av projektet:
+
+* <span class="text-green-300">Ny modell för världen och karaktären</span>  
+* <span class="text-yellow-400">Optimering för webben</span>, till exempel minskade pivots och antal faces i objekten
+
+---
+
+## Features
+
+✅ <span class="text-cyan-300 font-semibold">Ny värld</span>  
+✅ <span class="text-emerald-300 font-semibold">Optimering</span>
+
+---
+
+<hr class="border-pink-400 my-4">
+<br>
+
+
+<br><br>
+
+Published: <span class="text-gray-400">2025-05-10</span>

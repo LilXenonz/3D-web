@@ -3,19 +3,23 @@
 </script>
 
 <main>
-  <header class="top-0 relative z-10 mx-auto max-w-7xl md:sticky md:top-4 relative bg-slate-50 rounded-b-lg shadow-md">
+  <header
+    class="sticky top-4 z-10 mx-auto max-w-7xl bg-slate-50 rounded-b-lg shadow-md font-pixelify"
+  >
     <nav>
-      <div class="flex flex-row justify-center gap-12 px-6 py-4 md:m-4 md:rounded-xl">
-        <a 
-          href="{base}/" 
-          aria-label="Main Page" 
+      <div
+        class="flex justify-center gap-12 px-6 py-4 m-4 rounded-xl"
+      >
+        <a
+          href="{base}/"
+          aria-label="Main Page"
           class="text-xl font-extrabold tracking-tighter text-slate-900 transition-transform duration-300 hover:scale-110"
         >
           Main
         </a>
-        <a 
-          href="{base}/devblog" 
-          aria-label="Blog Page" 
+        <a
+          href="{base}/devblog"
+          aria-label="Blog Page"
           class="text-xl font-extrabold tracking-tighter text-slate-900 transition-transform duration-300 hover:scale-110"
         >
           Blog
@@ -24,3 +28,9 @@
     </nav>
   </header>
 </main>
+
+<style>
+  .font-pixelify {
+    font-family: "Pixelify Sans", sans-serif;
+  }
+</style>
