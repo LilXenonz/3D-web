@@ -18,7 +18,8 @@ const config = {
 			fallback: 'null'
 		}),
 		paths: {
-			base: '/3D-web' 
+			base: '/3D-web', 
+			relative: false
 		}
 		
 	},
