@@ -17,6 +17,9 @@ const config = {
 			assets: 'docs',
 			fallback: '404.html'
 		}),
+		paths: {
+			base: '3D-web' 
+		}
 		
 	},
 };
