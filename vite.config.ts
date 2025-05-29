@@ -4,5 +4,5 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
-	base: '/3D-web' 
+	base: '/3D-web/' 
 });
