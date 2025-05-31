@@ -15,19 +15,21 @@
   const gltf = useGltf('3dmodels/world.glb')
 
   const billboardsProps = writable<{
-    id: number;
-    url: string;
-    position: [number, number, number];
-    show: boolean;
-    scale?: Spring<number>;
-  }[]>([
+      id: number;
+      url: string;
+      position: [number, number, number];
+      show: boolean;
+      scale?: Spring<number>;
+      title?: string;
+    }[]>([
     {
       //ilia topuria
       id: 1,
       url: 'https://en.wikipedia.org/wiki/Ilia_Topuria',
       position: [-72.41, 7.73, 45.12],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "EL MATADOR"
     },
     {
       //paddy pimblett
@@ -35,7 +37,8 @@
       url: 'https://en.wikipedia.org/wiki/Paddy_Pimblett',
       position: [-72.97, 6.89, 21.66],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "THE BADDY"
     },
     {
       //merab dvalishvili
@@ -43,7 +46,9 @@
       url: 'https://en.wikipedia.org/wiki/Merab_Dvalishvili',
       position: [-73.21, 6.89, -1.38],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "THE MACHINE"
+
     },
     {
       //khamzat chimaev
@@ -51,7 +56,8 @@
       url: 'https://en.wikipedia.org/wiki/Khamzat_Chimaev',
       position: [-51.22, 6.99, 71.4],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "BORZ"
     },
     {
       //islam makhachev
@@ -59,7 +65,8 @@
       url: 'https://en.wikipedia.org/wiki/Islam_Makhachev',
       position: [-27.69, 6.89, 73.24],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "?!?!?!?"
     },
     {
       //dricus du plessis
@@ -67,7 +74,8 @@
       url: "https://en.wikipedia.org/wiki/Dricus_du_Plessis",
       position: [-5.5, 6.69, 71.68],
       show: false,
-      scale: new Spring(1)
+      scale: new Spring(1),
+      title: "Stillknocks"
     }
   ])
 
@@ -244,32 +252,30 @@ const zoroCurrentScale = 1.31;
           bind:this={html}
           position={billboard.position}
         >
-          <div class="billboard-wrapper" style="border-radius:1rem">
+          <div
+            class="w-[420px] h-[240px] bg-black border-2 border-green-500 rounded-lg flex flex-col font-pixelify"
+          >
+            <div class="bg-green-800 text-black text-lg font-extrabold px-3 py-1 border-b border-green-500">
+              {billboard.title}
+            </div>
+
             <iframe
-              title=""
+              title={billboard.title ?? "Billboard"}
               src={billboard.url}
               width="100%"
               height="100%"
               frameborder="0"
-            >
-            </iframe>
+              class="bg-black"
+            ></iframe>
           </div>
         </HTML>
       {/if}
     {/each}
   {/if}
-
-<style>
-  .billboard-wrapper {
-    height: 200px;
-    width: 420px;
-    border-radius: 63px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-</style>
-
 {/if}
+
+
+
 <T.Group
   bind:ref
   dispose={false}

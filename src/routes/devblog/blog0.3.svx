@@ -41,7 +41,6 @@ Följande ändringar och implementationer har gjorts i denna version av projekte
 <hr class="border-pink-400 my-4">
 <br>
 
-
 <br><br>
 
 Published: <span class="text-gray-400">2025-05-10</span>
