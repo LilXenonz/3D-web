@@ -7,16 +7,11 @@
 
 <Canvas>
   <HTML center>
-    <section
-      class="w-[250px] mx-auto bg-black bg-opacity-90 rounded-lg border-2 border-green-500 p-4"
-      style="max-width: 250px;"
-    >
-      <h1
-        class="text-3xl font-extrabold text-green-400 mb-4 tracking-widest select-none text-center"
-      >
+    <section class="w-[250px] mx-auto bg-opacity-90 rounded-lg border-2 border-green-500 p-4 text-green-400 text-sm max-h-[300px] overflow-auto">
+      <h1 class="text-3xl font-extrabold mb-4 tracking-widest select-none text-center">
         DEVBLOG
       </h1>
-      <ul class="space-y-2 list-disc list-inside text-green-400 text-sm max-h-[300px] overflow-auto">
+      <ul class="space-y-2 list-disc list-inside">
         {#each data.posts as post}
           <li>
             <a 
@@ -31,4 +26,3 @@
     </section>
   </HTML>
 </Canvas>
-

@@ -32,12 +32,6 @@ Följande ändringar och implementationer har gjorts i denna version av projekte
 ✅ <span class="text-cyan-300 font-semibold">Blogg</span>  
 ✅ <span class="text-emerald-300 font-semibold">Optimering</span>
 
----
-
 <hr class="border-pink-400 my-4">
-<br>
 
-
-<br>
-<br>
 Published: <span class="text-gray-400">2025-05-03</span>

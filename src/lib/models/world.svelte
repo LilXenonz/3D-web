@@ -5,8 +5,8 @@
   
   <script lang="ts">
   import type { Group } from 'three'
-  import { T, useThrelte, useTask } from '@threlte/core'
-  import { useGltf, interactivity, HTML, Billboard, GLTF } from '@threlte/extras'
+  import { T } from '@threlte/core'
+  import { useGltf, interactivity, HTML } from '@threlte/extras'
   import gsap from 'gsap';
   import { Spring } from 'svelte/motion'
   import { writable } from 'svelte/store'
@@ -182,36 +182,29 @@ function JumpZoro() {
 </script>
 
 
-{#if show}
-  {#if $billboardsProps}
-    {#each $billboardsProps as billboard (billboard.id)}
-      {#if billboard.show}
-        <HTML
-          autoRender={true}
-          bind:this={html}
-          position={billboard.position}
-        >
-          <div
-            class="w-[420px] h-[240px] bg-black border-2 border-green-500 rounded-lg flex flex-col font-pixelify"
-          >
-            <div class="bg-green-800 text-black text-lg font-extrabold px-3 py-1 border-b border-green-500">
-              {billboard.title}
-            </div>
-
-            <iframe
-              title={billboard.title ?? "Billboard"}
-              src={billboard.url}
-              width="100%"
-              height="100%"
-              frameborder="0"
-              class="bg-black"
-            ></iframe>
+{#if show && $billboardsProps}
+  {#each $billboardsProps as billboard (billboard.id)}
+    {#if billboard.show}
+      <HTML autoRender bind:this={html} position={billboard.position}>
+        <div class="w-[420px] h-[240px] bg-black border-2 border-green-500 rounded-lg flex flex-col font-pixelify">
+          <div class="bg-green-800 text-black text-lg font-extrabold px-3 py-1 border-b border-green-500">
+            {billboard.title}
           </div>
-        </HTML>
-      {/if}
-    {/each}
-  {/if}
+
+          <iframe
+            title={billboard.title ?? "Billboard"}
+            src={billboard.url}
+            width="100%"
+            height="100%"
+            class="bg-black"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </HTML>
+    {/if}
+  {/each}
 {/if}
+
 
 
 {#if $gltf}

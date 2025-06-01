@@ -10,7 +10,7 @@
         aria-label="Main Page"
         class="text-lg tracking-widest hover:text-green-200 transition-transform duration-200 hover:scale-105"
       >
-        !MAIN!
+        MAIN
       </a>
       <a
         href="{base}/devblog"
