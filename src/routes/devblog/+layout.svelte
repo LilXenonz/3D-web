@@ -12,7 +12,10 @@
       fov={20}
       oncreate={(ref) => ref.lookAt(0, 2, 0)}
       makeDefault
-    />
+    >
+  
+  </T.PerspectiveCamera>
+    
 
     <RetroComputer />
     <Bg />
@@ -34,5 +37,9 @@
   .phone-screen {
     width: 300px;
     height: 200px;
+  }
+
+  .font-pixelify {
+    font-family: 'Pixelify Sans', monospace, monospace;
   }
 </style>

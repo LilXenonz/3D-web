@@ -8,9 +8,7 @@
 
   const { progress } = useProgress()
   const p = fromStore(progress)
-  const tweenedProgress = Tween.of(() => p.current, {
-    duration: 150
-  })
+  const tweenedProgress = Tween.of(() => p.current, { duration: 150 })
   const progressWidth = $derived(100 * tweenedProgress.current)
   const progressLessThanOne = $derived(tweenedProgress.current < 1)
 </script>
@@ -18,10 +16,10 @@
 {#if progressLessThanOne}
   <div
     transition:fade={{ duration: 200 }}
-    class="fixed inset-0 bg-black flex flex-col gap-1 items-center justify-center text-green-400 font-pixelify select-none z-50"
+    class="fixed inset-0 bg-black flex flex-col items-center justify-center gap-1 text-green-400 font-pixelify select-none z-50"
   >
     <p class="text-sm tracking-widest drop-shadow-[0_0_10px_rgba(0,255,0,0.8)] animate-pulse">
-      LOADING...
+      Loading...
     </p>
     <div class="w-1/3 h-2 border border-green-500 rounded relative overflow-hidden bg-black">
       <div
@@ -32,12 +30,10 @@
   </div>
 {/if}
 
-<main>
-  <div class="fixed inset-0 z-0">
-    <Canvas>
-      <Scene />
-    </Canvas>
-  </div>
+<main class="fixed inset-0 z-0">
+  <Canvas>
+    <Scene />
+  </Canvas>
 </main>
 
 <style>

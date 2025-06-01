@@ -12,7 +12,7 @@
   import { writable } from 'svelte/store'
   let { fallback, error, children, ref = $bindable(), object3D = $bindable(), ...props } = $props()
 
-  const gltf = useGltf('3dmodels/world.glb')
+  const gltf = useGltf('/3D-web/3dmodels/world.glb')
 
   const billboardsProps = writable<{
       id: number;
@@ -117,61 +117,31 @@ let luffyisCharacterReady = true;
 
 const luffyCurrentScale = 10.22;
 
-  function Jumpluffy(){
-    const jumpHeight = 5
-    const jumpduration = 0.2
+  function Jumpluffy() {
+  if (!$luffyInstance) return;
+  if (!luffyisCharacterReady) return;
+  luffyisCharacterReady = false;
 
-    const timeline1 = gsap.timeline();
-    
-    if (!$luffyInstance) return;
-    if (!luffyisCharacterReady) return;
+  const timeline = gsap.timeline();
 
-    timeline1.to($luffyInstance.scale, {
-    x: luffyCurrentScale * 1.2,
-    y: luffyCurrentScale * 0.8,
-    z: luffyCurrentScale * 1.2,
-    duration: jumpduration * 0.2,
-    ease: "power2.out",
-  });
-
-  timeline1.to($luffyInstance.scale, {
-    x: luffyCurrentScale * 0.8,
-    y: luffyCurrentScale * 1.3,
-    z: luffyCurrentScale * 0.8,
-    duration: jumpduration * 0.3,
-    ease: "power2.out",
-  });
-
-  timeline1.to(
-    $luffyInstance.position,
-    {
-      y: $luffyInstance.position.y + jumpHeight,
-      duration: jumpduration * 0.5,
-      ease: "power2.out",
-    },
-    "<"
-  );
-
-  timeline1.to($luffyInstance.scale, {
+  timeline.to($luffyInstance.scale, {
     x: luffyCurrentScale * 1.2,
     y: luffyCurrentScale * 1.2,
     z: luffyCurrentScale * 1.2,
-    duration: jumpduration * 0.3,
-    ease: "power1.inOut",
+    duration: 0.2,
+    ease: "power1.out",
   });
 
-  timeline1.to(
-    $luffyInstance.position,
-    {
-      y: $luffyInstance.position.y,
-      duration: jumpduration * 0.5,
-      ease: "bounce.out",
-      onComplete: () => {
-        luffyisCharacterReady = true;
-      },
+  timeline.to($luffyInstance.scale, {
+    x: luffyCurrentScale,
+    y: luffyCurrentScale,
+    z: luffyCurrentScale,
+    duration: 0.2,
+    ease: "power1.in",
+    onComplete: () => {
+      luffyisCharacterReady = true;
     },
-    ">"
-  );
+  });
 }
 
 const zoroInstance = writable<Group | undefined>(undefined)
@@ -179,65 +149,34 @@ let zoroisCharacterReady = true;
 
 const zoroCurrentScale = 1.31;
 
-  function JumpZoro(){
-    const jumpHeight = 5
-    const jumpduration = 0.2
+function JumpZoro() {
+  if (!$zoroInstance) return;
+  if (!zoroisCharacterReady) return;
+  zoroisCharacterReady = false;
 
-    const timeline1 = gsap.timeline();
-    
-    if (!$zoroInstance) return;
-    if (!zoroisCharacterReady) return;
+  const timeline = gsap.timeline();
 
-    timeline1.to($zoroInstance.scale, {
-    x: zoroCurrentScale * 1.2,
-    y: zoroCurrentScale * 0.8,
-    z: zoroCurrentScale * 1.2,
-    duration: jumpduration * 0.2,
-    ease: "power2.out",
-  });
-
-  timeline1.to($zoroInstance.scale, {
-    x: zoroCurrentScale * 0.8,
-    y: zoroCurrentScale * 1.3,
-    z: zoroCurrentScale * 0.8,
-    duration: jumpduration * 0.3,
-    ease: "power2.out",
-  });
-
-  timeline1.to(
-    $zoroInstance.position,
-    {
-      y: $zoroInstance.position.y + jumpHeight,
-      duration: jumpduration * 0.5,
-      ease: "power2.out",
-    },
-    "<"
-  );
-
-  timeline1.to($zoroInstance.scale, {
+  timeline.to($zoroInstance.scale, {
     x: zoroCurrentScale * 1.2,
     y: zoroCurrentScale * 1.2,
     z: zoroCurrentScale * 1.2,
-    duration: jumpduration * 0.3,
-    ease: "power1.inOut",
+    duration: 0.2,
+    ease: "power1.out",
   });
 
-  timeline1.to(
-    $zoroInstance.position,
-    {
-      y: $zoroInstance.position.y,
-      duration: jumpduration * 0.5,
-      ease: "bounce.out",
-      onComplete: () => {
-        zoroisCharacterReady = true;
-      },
+  timeline.to($zoroInstance.scale, {
+    x: zoroCurrentScale,
+    y: zoroCurrentScale,
+    z: zoroCurrentScale,
+    duration: 0.2,
+    ease: "power1.in",
+    onComplete: () => {
+      zoroisCharacterReady = true;
     },
-    ">"
-  );
+  });
 }
 
   const modelref = $state<Group | undefined>(undefined);
-
 
 
 </script>
@@ -275,7 +214,7 @@ const zoroCurrentScale = 1.31;
 {/if}
 
 
-
+{#if $gltf}
 <T.Group
   bind:ref
   dispose={false}
@@ -2247,3 +2186,5 @@ const zoroCurrentScale = 1.31;
 
   {@render children?.({ ref })}
 </T.Group>
+{/if}
+

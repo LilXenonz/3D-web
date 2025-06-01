@@ -13,7 +13,7 @@ Title: Retro computer
 
   let { fallback, error, children, ref = $bindable(), ...props } = $props()
 
-  const gltf = useGltf('3dmodels/retro_computer.glb')
+  const gltf = useGltf('/3D-web/3dmodels/retro_computer.glb')
 </script>
 
 {#if $gltf}
@@ -27,7 +27,7 @@ Title: Retro computer
   {:then gltf}
     <T.Group
       rotation={[-Math.PI / 2, 0, 0]}
-      position={[1.55,0,0]}
+      position={[0,-1,-2.5]}
       scale={6}
     >
       <T.Group rotation={[Math.PI / 2, 0, 0]}>

@@ -9,12 +9,13 @@ Command: npx @threlte/gltf@3.0.1 .\BG.glb
 
   let { fallback, error, children, ref = $bindable(), ...props } = $props()
 
-  const gltf = useGltf('3dmodels/BG.glb')
+  const gltf = useGltf('/3D-web/3dmodels/BG.glb')
 </script>
 
+{#if $gltf}
 <T.Group 
-  position={[-35,-2,40]}
-  rotation={[0,90,0]}
+  position={[-35,-2, 45]}
+  rotation={[0, (Math.PI / 2) + 0.5, 0]}
   bind:ref
   dispose={false}
   {...props}
@@ -399,3 +400,4 @@ Command: npx @threlte/gltf@3.0.1 .\BG.glb
 
   {@render children?.({ ref })}
 </T.Group>
+{/if}
