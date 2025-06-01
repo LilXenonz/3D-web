@@ -5,7 +5,7 @@
   import { Canvas } from '@threlte/core';
 </script>
 
-<Canvas class="w-full h-full bg-black">
+<Canvas>
   <HTML center>
     <section
       class="w-[250px] mx-auto bg-black bg-opacity-90 rounded-lg border-2 border-green-500 p-4 font-pixelify"

@@ -6,7 +6,7 @@
 </script>
 
 <div class="fixed inset-0 z-0">
-  <Canvas class="bg-black">
+  <Canvas >
     <T.PerspectiveCamera
       position={[20, 20, 35]}
       fov={20}

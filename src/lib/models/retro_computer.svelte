@@ -16,6 +16,7 @@ Title: Retro computer
   const gltf = useGltf('3dmodels/retro_computer.glb')
 </script>
 
+{#if $gltf}
 <T.Group
   bind:ref
   dispose={false}
@@ -62,3 +63,4 @@ Title: Retro computer
 
   {@render children?.({ ref })}
 </T.Group>
+{/if}

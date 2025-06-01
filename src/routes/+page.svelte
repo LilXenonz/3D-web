@@ -17,15 +17,15 @@
 
 {#if progressLessThanOne}
   <div
-    transition:fade={{
-      duration: 200
-    }}
-    class="wrapper"
+    transition:fade={{ duration: 200 }}
+    class="fixed inset-0 bg-black flex flex-col gap-1 items-center justify-center text-green-400 font-pixelify select-none z-50"
   >
-    <p class="loading">Loading</p>
-    <div class="bar-wrapper">
+    <p class="text-sm tracking-widest drop-shadow-[0_0_10px_rgba(0,255,0,0.8)] animate-pulse">
+      LOADING...
+    </p>
+    <div class="w-1/3 h-2 border border-green-500 rounded relative overflow-hidden bg-black">
       <div
-        class="bar"
+        class="h-full bg-green-400 shadow-[0_0_15px_#00ff00] transition-all duration-150"
         style="width: {progressWidth}%"
       ></div>
     </div>
@@ -33,47 +33,15 @@
 {/if}
 
 <main>
-  <div class="fixed height-full size-full top-0 left-0 z-0">
+  <div class="fixed inset-0 z-0">
     <Canvas>
-          <Scene/>
+      <Scene />
     </Canvas>
   </div>
 </main>
 
-
 <style>
-  div.main {
-    height: 100%;
-  }
-  .wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    align-items: center;
-    justify-content: center;
-    color: black;
-  }
-  .loading {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-  .bar-wrapper {
-    width: 33.333333%;
-    height: 10px;
-    border: 1px solid black;
-    position: relative;
-  }
-  .bar {
-    height: 100%;
-    background-color: black;
+  .font-pixelify {
+    font-family: 'Pixelify Sans', monospace, monospace;
   }
 </style>
-
-
-
